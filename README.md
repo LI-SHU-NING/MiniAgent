@@ -1,7 +1,7 @@
-# OpenAgent - 开源通用智能体
+# MiniAgent - 开源通用智能体
 
 <p align="center">
-  <img src="docs/screenshots/chat.png" width="86%" alt="OpenAgent Web UI">
+  <img src="docs/screenshots/chat.png" width="86%" alt="MiniAgent Web UI">
 </p>
 
 <p align="center">
@@ -79,7 +79,7 @@ python server.py
 
 侧栏会话管理（新建 / 重命名 / 删除、运行中任务 ⏳ 标识）；聊天页实时渲染执行计划、思考与工具调用（可展开）、过程正文与最终结论；右侧文件面板直接浏览/预览工作目录产物。
 
-仓库内置一组演示会话数据（`.openagent/`），首次启动即可在侧栏看到示例对话效果。
+仓库内置一组演示会话数据（`.miniagent/`），首次启动即可在侧栏看到示例对话效果。
 
 ## 内置工具
 
@@ -149,7 +149,7 @@ pytest tests/test_smoke.py -v      # 冒烟：需要 api 段配置的 API 可用
 │       ├── file_tools.py / shell_tools.py / python_tools.py / web_tools.py / doc_tools.py
 │       └── browser/         # Playwright 会话 + ref 定位
 ├── web/static/index.html    # Web 聊天页（玻璃拟态主题，单文件零依赖）
-├── .openagent/              # 演示会话数据（可删除）
+├── .miniagent/              # 演示会话数据（可删除）
 └── tests/
 ```
 

@@ -26,7 +26,7 @@ from agent.tools.registry import ToolResult
 
 console = Console()
 
-BANNER = """[bold cyan]OpenAgent[/] - 开源通用智能体
+BANNER = """[bold cyan]MiniAgent[/] - 开源通用智能体
 [dim]Plan-and-Execute · ReAct · Tool Calling · Browser[/dim]
 [dim]模型: OpenAI 兼容 API · MIT License[/dim]"""
 

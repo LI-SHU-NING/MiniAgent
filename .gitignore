@@ -8,8 +8,8 @@ logs/
 *.log
 
 # 本机会话（仓库内置演示数据除外）
-.openagent/conversations/*
-!.openagent/conversations/demo.md
+.miniagent/conversations/*
+!.miniagent/conversations/demo.md
 
 # Python
 __pycache__/

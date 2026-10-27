@@ -28,7 +28,7 @@ from pydantic import BaseModel
 from agent.config import load_config
 from agent.executor import Agent, AgentEvent
 
-app = FastAPI(title="OpenAgent")
+app = FastAPI(title="MiniAgent")
 cfg, root = load_config()
 WEB_DIR = Path(__file__).parent / "web" / "static"
 SESSIONS_FILE = root / "data" / "sessions.json"
@@ -47,11 +47,11 @@ _ws_root = str(Path(cfg.security.workspace).resolve())  # 当前工作目录（�
 
 def _sessions_file() -> Path:
     """当前工作目录的会话存储（按工作目录隔离）。"""
-    return Path(_ws_root) / ".openagent" / "sessions.json"
+    return Path(_ws_root) / ".miniagent" / "sessions.json"
 
 
 def _conv_dir() -> Path:
-    return Path(_ws_root) / ".openagent" / "conversations"
+    return Path(_ws_root) / ".miniagent" / "conversations"
 
 
 def _load_sessions():
@@ -80,14 +80,14 @@ def _conv_path(sid: str) -> Path:
 
 
 def _write_conversation_md(sid: str):
-    """把会话写为当前工作目录 .openagent/conversations/ 下的 Markdown 文件。"""
+    """把会话写为当前工作目录 .miniagent/conversations/ 下的 Markdown 文件。"""
     s = _sessions.get(sid)
     if not s:
         return
     _conv_dir().mkdir(parents=True, exist_ok=True)
     title = s["title"].strip()[:40] or "新对话"
     ts = datetime.fromtimestamp(s["created_at"]).strftime("%Y-%m-%d %H:%M")
-    lines = [f"# {title}", f"> 会话 {sid} ｜ 创建于 {ts} ｜ OpenAgent", ""]
+    lines = [f"# {title}", f"> 会话 {sid} ｜ 创建于 {ts} ｜ MiniAgent", ""]
     for m in s["messages"]:
         role = "🧑 用户" if m["role"] == "user" else "🤖 智能体"
         kind = m.get("kind")
@@ -310,7 +310,7 @@ def set_workspace_dir(new_root: str):
             _save_sessions()
     _ws_root = str(Path(new_root).resolve())
     cfg.security.workspace = _ws_root
-    # 2. 重建会话存储：清空后加载新目录的 .openagent/sessions.json
+    # 2. 重建会话存储：清空后加载新目录的 .miniagent/sessions.json
     with _sessions_lock:
         _sessions.clear()
         _load_sessions()
@@ -584,5 +584,5 @@ def chat(req: ChatRequest):
 if __name__ == "__main__":
     import uvicorn
 
-    print(f"OpenAgent Web: http://{cfg.server.host}:{cfg.server.port}")
+    print(f"MiniAgent Web: http://{cfg.server.host}:{cfg.server.port}")
     uvicorn.run(app, host=cfg.server.host, port=cfg.server.port, log_level="warning")

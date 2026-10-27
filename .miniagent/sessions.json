@@ -39,7 +39,7 @@
      "kind": "tool_result",
      "tool": "list_dir",
      "error": false,
-     "content": "[界面预览，完整结果已提供给模型] (工作目录)\n[目录] .openagent/\n[目录] .pytest_cache/\n[目录] __pycache__/\n[目录] _scratch/\n[目录] agent/\n[目录] conversations/\n[目录] data/\n[目录] logs/\n[目录] tests/\n[目录] web/\n[目录] websearch/\n[目录] 研究产出/\n        CHANGELOG.md  (14295 B)\n        config.yaml  (2810 B)\n        cross_src.json  (9203 B)\n        LICENSE  (1056 B)\n        main.py  (5106 B)\n        pytest.ini  (40 B)\n        README.md  (5156 B"
+     "content": "[界面预览，完整结果已提供给模型] (工作目录)\n[目录] .miniagent/\n[目录] .pytest_cache/\n[目录] __pycache__/\n[目录] _scratch/\n[目录] agent/\n[目录] conversations/\n[目录] data/\n[目录] logs/\n[目录] tests/\n[目录] web/\n[目录] websearch/\n[目录] 研究产出/\n        CHANGELOG.md  (14295 B)\n        config.yaml  (2810 B)\n        cross_src.json  (9203 B)\n        LICENSE  (1056 B)\n        main.py  (5106 B)\n        pytest.ini  (40 B)\n        README.md  (5156 B"
     },
     {
      "role": "assistant",

@@ -1,4 +1,4 @@
-# 重启 OpenAgent 服务，使 agent/tools 下的代码改动在真实会话生效。
+# 重启 MiniAgent 服务，使 agent/tools 下的代码改动在真实会话生效。
 # 背景：server.py 使用 uvicorn.run(app) 且未开启 reload；运行中的进程只在启动时导入一次
 #       agent.tools.browser.*，此后磁盘上的修复不会自动加载。运行本脚本即可重载最新代码。
 #
