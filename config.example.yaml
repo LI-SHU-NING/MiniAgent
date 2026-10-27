@@ -1,0 +1,81 @@
+# 通用智能体配置文件
+# 全部模型（规划 / 执行 / 视觉 / 记忆向量嵌入）统一通过下面 api 段的
+# OpenAI 兼容云端服务提供。
+
+api:
+  # 统一 API 地址（OpenAI 兼容）：规划、执行、视觉、记忆嵌入全部复用此地址
+  base_url: https://api.deepseek.com
+  api_key: ""  # 在此填入你的 DeepSeek API Key；留空则回退本地 Ollama
+  # 规划器模型：负责任务分解
+  planner_model: deepseek-flash
+  # 执行器模型：负责 ReAct 循环与工具调用
+  executor_model: deepseek-flash
+  # 视觉模型：浏览器截图等图片交给它分析（留空则复用 executor_model）
+  vision_model: deepseek-v4-pro
+  # 记忆向量嵌入模型：本地 Ollama 的 bge-m3（BAAI 开源，多语言含中文）。
+  # 嵌入服务独立指向本地 Ollama 的 OpenAI 兼容端点（DeepSeek API 无 /embeddings）。
+  embed_model: bge-m3
+  embed_base_url: http://localhost:11434/v1
+
+agent:
+  # 每个任务最大 ReAct 步数（接近上限会提前告知模型剩余预算，引导其主动收尾）
+  max_steps_per_task: 35
+  # 任务失败后最多重规划次数
+  max_replans: 3
+  # 工具结果注入上下文前的最大字符数（防止上下文爆炸）
+  tool_result_max_chars: 10000
+  # 会话历史字符预算，超过后自动压缩旧消息
+  history_budget_chars: 24000
+  # 单次工具执行超时（秒）
+  tool_timeout: 120
+  # 单次模型请求超时（秒）。远程/慢速链路建议保持较大值
+  request_timeout: 300
+  # 是否对支持 /no_think 的模型关闭思考链（qwen3 文本系列等）
+  no_think: false
+  # 单次回复 token 上限（含思考消耗，思考型模型建议 >= 2048）
+  executor_max_tokens: 4096
+  planner_max_tokens: 6144
+
+browser:
+  headless: false
+  timeout: 30
+  viewport: [1280, 800]
+  # 自定义 User-Agent（留空使用 Playwright 默认）
+  user_agent: null
+
+security:
+  # 文件工具的工作目录沙箱（相对路径基于本文件所在目录）
+  workspace: .
+  # CLI 下执行危险命令前是否要求人工确认；Web 模式下危险命令一律拒绝
+  confirm_shell: true
+  dangerous_patterns:
+    - "rm -rf"
+    - "Remove-Item"
+    - "rmdir /s"
+    - "del /s"
+    - "rd /s"
+    - "format "
+    - "shutdown"
+    - "reg delete"
+    - "reg add"
+    - "mkfs"
+    - "dd if="
+    - "> /dev/sda"
+    - "taskkill /f"
+
+memory:
+  enabled: true
+  # 向量记忆存储路径
+  path: data/memory.json
+  # 每个目标召回的相似记忆条数
+  top_k: 3
+  # 嵌入 API 不可用时是否降级为内置本地向量器（false = 直接报错并禁用记忆）
+  allow_local_fallback: true
+
+server:
+  host: 127.0.0.1
+  port: 8799
+
+logging:
+  # 运行日志文件（空字符串表示不写文件）
+  file: data/agent.log
